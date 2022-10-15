@@ -21,12 +21,15 @@ static void ConfigureServices(WebApplicationBuilder builder)
 {
     ConfigurationManager Configuration = builder.Configuration; // allows both to access and to set up the config
 
+    #region Database
     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
     builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
+    #endregion
 
+    #region Authentication
     builder.Services.Configure<AuthSettings>(Configuration.GetSection("AuthSettings"));
 
     var key = Encoding.ASCII.GetBytes(Configuration["AuthSettings:Key"]);
@@ -54,6 +57,9 @@ static void ConfigureServices(WebApplicationBuilder builder)
             options.SaveToken = true;
             options.TokenValidationParameters = tokenValidationParameters;
         });
+    #endregion
+
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
     builder.Services.AddControllers();
 }
