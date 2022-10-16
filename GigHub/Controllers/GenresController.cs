@@ -1,17 +1,9 @@
 ﻿using AutoMapper;
-using GigHub.Configuration;
-using GigHub.Core.Models;
 using GigHub.Core.Resources;
 using GigHub.Persistence;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace GigHub.Controllers
 {

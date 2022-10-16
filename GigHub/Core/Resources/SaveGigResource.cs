@@ -4,8 +4,6 @@ namespace GigHub.Core.Resources
 {
     public class SaveGigResource
     {
-        public int Id { get; set; }
-
         [Required]
         public string Date { get; set; }
 
