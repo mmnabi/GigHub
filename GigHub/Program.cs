@@ -105,16 +105,18 @@ static void ConfigureServices(WebApplicationBuilder builder)
 
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    builder.Services.AddControllers();
+
     builder.Services.AddSpaStaticFiles(configuration =>
     {
         configuration.RootPath = "ClientApp/dist";
     });
-
-    builder.Services.AddControllers();
 }
 
 static void Configure(WebApplication app)
 {
+    app.UseHttpsRedirection();
+
     app.UseStaticFiles();
 
     if (!app.Environment.IsDevelopment())

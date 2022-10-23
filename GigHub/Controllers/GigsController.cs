@@ -52,7 +52,7 @@ namespace GigHub.Controllers
 
             gig.ArtistId = User.GetUserId();
 
-            _context.Gigs.Add(gig);
+            await _context.Gigs.AddAsync(gig);
             await _context.SaveChangesAsync();
             return OkResponse(gig);
         }
