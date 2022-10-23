@@ -3,6 +3,7 @@ using GigHub.Core.Models;
 using GigHub.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -104,11 +105,23 @@ static void ConfigureServices(WebApplicationBuilder builder)
 
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+    builder.Services.AddSpaStaticFiles(configuration =>
+    {
+        configuration.RootPath = "ClientApp/dist";
+    });
+
     builder.Services.AddControllers();
 }
 
 static void Configure(WebApplication app)
 {
+    app.UseStaticFiles();
+
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseSpaStaticFiles();
+    }
+
     app.UseRouting();
 
     app.UseAuthentication();
@@ -126,5 +139,19 @@ static void Configure(WebApplication app)
         endpoints.MapControllerRoute(
             name: "default",
             pattern: "{controller}/{action=Index}/{id?}");
+    });
+
+    app.UseSpa(spa =>
+    {
+        // To learn more about options for serving an Angular SPA from ASP.NET Core,
+        // see https://go.microsoft.com/fwlink/?linkid=864501
+
+        spa.Options.SourcePath = "ClientApp";
+
+        if (app.Environment.IsDevelopment())
+        {
+            spa.UseAngularCliServer(npmScript: "start");
+            // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+        }
     });
 }
