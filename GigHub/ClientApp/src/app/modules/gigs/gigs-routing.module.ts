@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MyGigsComponent } from './my-gigs/my-gigs.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../../components/home/home.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: 'mine', component: MyGigsComponent }
 ];
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forChild(routes)
   ],
   exports: [
     RouterModule
   ]
 })
-export class RoutingModule { }
+export class GigsRoutingModule { }
